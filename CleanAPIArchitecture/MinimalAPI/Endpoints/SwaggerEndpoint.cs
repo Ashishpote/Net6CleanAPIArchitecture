@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-namespace EY.ESG.AppStore.API.Endpoints;
+
+namespace MinimalAPI.Endpoints;
 
 /// <summary>
 /// Swagger
 /// </summary>
-public class SwaggerEndPoint //: IEndPointDefinition
+public class SwaggerEndPoint : IEndPointDefinition
 {
     /// <summary>  /// Add Swagger generation  /// </summary>  /// <param name="services"></param>  
     public void DefineServices(IServiceCollection services)
     {
         services.AddEndpointsApiExplorer(); services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "ESG API", Version = "v1", Description = "API Core services and its endpoints" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minimal API", Version = "v1", Description = "API Core services and its endpoints" });
             c.EnableAnnotations();
             var securityScheme = new OpenApiSecurityScheme 
                         {   Name = "JWT Authorization",

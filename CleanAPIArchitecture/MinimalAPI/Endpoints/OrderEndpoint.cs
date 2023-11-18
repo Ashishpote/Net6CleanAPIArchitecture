@@ -1,44 +1,40 @@
-﻿namespace MinimalAPI.Endpoints;
+﻿
 
-/// <summary>/// Class for adding endpoint definitions dynamically./// </summary>
-public static class EndPointDefinitionExtensions
-{  
-    /// <summary>  
-    /// Dynamically add endpoint service definitions  
-    /// </summary>  
-    /// <param name="services"></param>  
-    /// <param name="scanMarkers"></param>  
-    public static void AddEndPointDefinitions(this IServiceCollection services, params Type[] scanMarkers)
+namespace MinimalAPI.Endpoints;
+public class OrderEndpoint : IEndPointDefinition
+{
+    private ILogger<OrderEndpoint>? _logger;
+
+    public void DefineEndPoints(WebApplication app)
     {
-        var endpointDefinitions = new List<IEndPointDefinition>();
-        foreach (var marker in scanMarkers)
-        {
-            endpointDefinitions
-                    .AddRange(
-                        marker.Assembly.ExportedTypes
-                            .Where(x => typeof(IEndPointDefinition)
-                            .IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract
-                        )
-                        .Select(Activator.CreateInstance)
-                        .Cast<IEndPointDefinition>());
-        }
-        foreach (var endpointDefinition in endpointDefinitions)
-        {
-            endpointDefinition.DefineServices(services);
-        }
-        services.AddSingleton(endpointDefinitions as IReadOnlyCollection<IEndPointDefinition>);
+        app.MapGet("/orders", GetAllOrdersAsync);
+        app.MapGet("/order/id", GetOrderDetailByIdAsync);
+        app.MapPost("/order", AddOrderAsync);
+        app.MapDelete("/order/{guid}", DeleteOrderAsync);
     }
 
-    /// <summary>
-    ///  Dynamically add endpoint definitions 
-    /// </summary>
-    /// <param name="app"></param>
-    public static void UseEndPointDefinitions(this WebApplication app)
+    private Task DeleteOrderAsync(HttpContext context)
     {
-        var definitions = app.Services.GetRequiredService<IReadOnlyCollection<IEndPointDefinition>>();
-        foreach (var endpointDefinition in definitions)
-        {
-            endpointDefinition.DefineEndPoints(app);
-        }
+        throw new NotImplementedException();
+    }
+
+    private Task AddOrderAsync(HttpContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    private Task GetAllOrdersAsync(HttpContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    private Task GetOrderDetailByIdAsync(HttpContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DefineServices(IServiceCollection services)
+    {
+        //
     }
 }
