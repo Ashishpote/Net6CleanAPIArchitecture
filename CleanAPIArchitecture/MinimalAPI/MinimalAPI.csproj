@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CleanAPI.Infrastructure\CleanAPI.Infrastructure.csproj" />
     <ProjectReference Include="..\CleanAPI.Persistence\CleanAPI.Persistence.csproj" />
   </ItemGroup>
